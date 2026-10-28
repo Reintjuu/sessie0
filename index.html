@@ -228,13 +228,17 @@ function importText(t) {
     if (el instanceof RadioNodeList) { const w = v.replace(/[–—]/g, '-'); let ok = 0; for (const r of el) if (r.value === w) { r.checked = true; ok = 1; } return ok; }
     el.value = v; return 1;
   };
-  let n = 0;
+  let n = 0, first = true;
   for (const raw of t.split(/\r?\n/)) {
     const line = raw.replace(/\*/g, '').trim();
+    if (!line) continue;
     const h = line.match(/^##\s+(.+)$/);
-    if (h) { if (h[1].trim() !== 'Speler') n += set('naam', h[1].trim()); continue; }
+    if (h) { if (h[1].trim() !== 'Speler') n += set('naam', h[1].trim()); first = false; continue; }
     const clean = line.replace(/^[-•]\s+/, '');
     const hit = labels.find(([l]) => clean.startsWith(l.replace(/:$/, '')));
+    // Zonder opmaak geplakt: de eerste losse regel is de naam
+    if (first && !hit && !/^(#|\d+\s*·)/.test(clean)) n += set('naam', clean);
+    first = false;
     if (!hit) continue;
     const v = clean.slice(hit[0].replace(/:$/, '').length).replace(/^:/, '').trim();
     const q = hit[1];
