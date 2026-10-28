@@ -5,43 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Dorstwijk – Sessie 0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3e9d6;--card:#fbf5e9;--ink:#2b1d12;--muted:#7a6550;--line:#d8c5a5;--accent:#9c3b1c;--accent-ink:#fff;--sel:#f0d9c4}
-@media (prefers-color-scheme:dark){:root{--bg:#1c1511;--card:#271e18;--ink:#efe3d0;--muted:#b09a80;--line:#4a3a2c;--accent:#d0643c;--accent-ink:#1c1511;--sel:#3d2a1f}}
+:root{--paper:#ecdcb4;--ink:#2e1a0c;--faded:#6b4a2b;--red:#8e1b12;--brass1:#e8bd62;--brass2:#a8741f;--wood:#4a2d18;
+  --display:"Rye",Georgia,serif;--body:"Old Standard TT",Georgia,"Times New Roman",serif;--type:"Special Elite","Courier New",monospace}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Georgia,"Times New Roman",serif}
-main{max-width:640px;margin:0 auto;padding:16px 16px 120px}
-h1{font-size:1.7rem;margin:.5rem 0 0;letter-spacing:.02em}
-.sub{color:var(--muted);margin:.2rem 0 1rem;font-style:italic}
-section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 6px;margin:14px 0}
-section h2{font-size:1.15rem;margin:0 0 .2rem;color:var(--accent)}
-section .intro{color:var(--muted);font-size:.92rem;margin:0 0 .6rem}
-.private{border:2px solid var(--accent)}
-.q{margin:0 0 14px}
-.q>label,.q>.lbl{display:block;font-weight:bold;margin-bottom:4px}
-.hint{display:block;font-weight:normal;color:var(--muted);font-size:.88rem}
-input[type=text],textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font:inherit}
-textarea{min-height:70px;resize:vertical}
-.opts{display:flex;flex-wrap:wrap;gap:6px}
-.opts label{display:inline-flex;align-items:center;padding:7px 11px;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:.95rem;background:var(--bg)}
+html{background:var(--wood)}
+body{margin:0;color:var(--ink);font:17px/1.5 var(--body);min-height:100vh;
+  background:
+    repeating-linear-gradient(90deg,rgba(0,0,0,.35) 0 2px,transparent 2px 110px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 7px),
+    linear-gradient(180deg,#5c3a20,#3d2412)}
+main{position:relative;max-width:640px;margin:22px auto 120px;padding:28px 20px 18px;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(140,80,20,.18),transparent 35%),
+    radial-gradient(circle at 88% 30%,rgba(140,80,20,.14),transparent 30%),
+    radial-gradient(circle at 30% 85%,rgba(120,60,10,.2),transparent 40%),
+    var(--paper);
+  box-shadow:inset 0 0 70px rgba(110,60,15,.55),0 10px 30px rgba(0,0,0,.6);transform:rotate(-.3deg)}
+@media (max-width:672px){main{margin:16px 16px 110px;transform:none}}
+main::before,main::after{content:"";position:absolute;top:10px;width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#c9c2b4,#4b4038 70%);box-shadow:0 1px 2px rgba(0,0,0,.6)}
+main::before{left:10px} main::after{right:10px}
+.hero{text-align:center;border-top:5px double var(--ink);border-bottom:5px double var(--ink);padding:10px 0 12px;margin-bottom:6px}
+.kicker{font-family:var(--display);color:var(--red);font-size:1.2rem;letter-spacing:.25em}
+h1{font-family:var(--display);font-weight:normal;font-size:clamp(2.4rem,11vw,3.6rem);line-height:1;margin:.2rem 0;letter-spacing:.04em;text-shadow:2px 2px 0 rgba(142,27,18,.25)}
+.tag{font-family:var(--display);font-size:1rem;letter-spacing:.12em}
+.reward{margin-top:8px;font-family:var(--type);font-size:.95rem}
+.reward b{color:var(--red)}
+.sub{font-style:italic;text-align:center;color:var(--faded);margin:.8rem 0 0}
+section{position:relative;margin:26px 0 0}
+section h2{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:normal;font-size:1.25rem;margin:0 0 .5rem;text-align:center}
+section h2::before,section h2::after{content:"";flex:1;border-top:4px double var(--ink)}
+section .intro{color:var(--faded);font-style:italic;font-size:.95rem;margin:0 0 .8rem;text-align:center}
+.private{border:3px dashed var(--red);padding:18px 12px 4px;margin-top:32px}
+.private::after{content:"Vertrouwelijk";position:absolute;top:-16px;right:8px;font-family:var(--display);color:var(--red);font-size:.95rem;
+  border:3px double var(--red);padding:1px 8px;background:var(--paper);transform:rotate(4deg);letter-spacing:.08em}
+.q{margin:0 0 18px}
+.q>label,.q>.lbl{display:block;font-weight:700;margin-bottom:6px}
+.hint{display:block;font-weight:400;font-style:italic;color:var(--faded);font-size:.9rem}
+input[type=text],textarea{width:100%;padding:6px 4px;border:0;border-bottom:2px solid var(--ink);background:rgba(255,248,230,.45);color:var(--ink);font:1rem/1.4 var(--type);border-radius:0}
+textarea{min-height:76px;resize:vertical;border:2px dashed var(--faded)}
+input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:2px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts label{display:inline-flex;align-items:center;padding:7px 12px;border:2px solid var(--ink);border-radius:2px;cursor:pointer;font-size:.95rem;
+  background:rgba(255,248,230,.5);transition:transform .1s}
 .opts input{position:absolute;opacity:0;pointer-events:none}
-.opts label:has(input:checked){background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-table{width:100%;border-collapse:collapse;font-size:.92rem}
-th,td{padding:6px 2px;border-bottom:1px solid var(--line);text-align:center}
+.opts label:has(input:focus-visible){outline:2px solid var(--red);outline-offset:2px}
+.opts label:has(input:checked){background:var(--red);color:#f6e7c6;border-color:#5a0f09;transform:rotate(-1.5deg);box-shadow:2px 2px 0 var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{padding:7px 2px;border-bottom:1px dashed var(--faded);text-align:center}
 th:first-child,td:first-child{text-align:left}
-th{font-weight:normal;color:var(--muted);font-size:.8rem}
-td input{width:20px;height:20px;accent-color:var(--accent)}
-.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;justify-content:center}
-button{font:inherit;font-weight:bold;padding:11px 16px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
-button.ghost{background:transparent;color:var(--accent)}
+th{font-family:var(--type);font-weight:normal;color:var(--faded);font-size:.78rem}
+td input{appearance:none;-webkit-appearance:none;width:24px;height:24px;margin:0;border:2px solid var(--ink);border-radius:50%;background:rgba(255,248,230,.5);cursor:pointer;vertical-align:middle}
+td input:checked{border-color:#1a0d05;background:radial-gradient(circle,#120802 0 30%,#4a2c14 38%,rgba(74,44,20,.4) 55%,transparent 62%)}
+td input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.sign{text-align:center;font-family:var(--type);font-size:.85rem;color:var(--faded);margin:28px 0 0;border-top:5px double var(--ink);padding-top:8px}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:10px 16px;display:flex;gap:10px;justify-content:center;
+  background:repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 2px,transparent 2px 90px),linear-gradient(#5c3a20,#2f1b0c);border-top:3px solid #1f1007;box-shadow:0 -4px 14px rgba(0,0,0,.5)}
+button{font-family:var(--display);font-size:1.05rem;letter-spacing:.06em;padding:10px 18px;border-radius:3px;border:2px solid #1f1007;cursor:pointer;
+  background:linear-gradient(var(--brass1),var(--brass2));color:#2a170a;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 2px 0 #1f1007}
+button:active{transform:translateY(2px);box-shadow:none}
+button.ghost{background:transparent;color:var(--paper);border-color:var(--paper);box-shadow:none}
 #out{display:none}
-#out textarea{min-height:260px;font:13px/1.4 Consolas,monospace}
-#msg{color:var(--accent);font-weight:bold;min-height:1.4em}
+#out textarea{min-height:260px;font:13px/1.4 var(--type)}
+#msg{color:var(--red);font-weight:700;text-align:center;min-height:1.4em}
 </style>
 </head>
 <body>
 <main>
-<h1>🤠 Dorstwijk – Sessie 0</h1>
+<header class="hero">
+  <div class="kicker">★ Gezocht ★</div>
+  <h1>Dorstwijk</h1>
+  <div class="tag">Sessie 0 · De Rode Vlakte</div>
+  <div class="reward">Beloning: <b>een plek aan tafel</b></div>
+</header>
 <p class="sub">Vul in wat je wilt; alles mag leeg blijven. Klik onderaan op <b>Versturen</b> en stuur het <b>alleen naar de DM</b>, niet in de groepsapp.</p>
 <form id="f"></form>
 <section id="out">
@@ -50,6 +90,7 @@ button.ghost{background:transparent;color:var(--accent)}
   <p id="msg"></p>
   <textarea id="txt" readonly></textarea>
 </section>
+<p class="sign">Op last van de sheriff van Dorstwijk</p>
 </main>
 <div class="bar">
   <button type="button" class="ghost" id="reset">Wissen</button>
@@ -61,16 +102,18 @@ const S = [
   {id:"naam", type:"text", l:"Je naam (speler)"}]},
  {t:"1 · Opwarmen", q:[
   {id:"moment", type:"area", l:"Mooiste moment uit een eerdere campaign?", h:"Wat willen we vaker?"},
-  {id:"zin", type:"scale", l:"Waar heb je zin in?", h:"1 = maakt niet uit · 5 = heel veel", rows:["Schieten","Verkennen","Roleplay"], cols:["1","2","3","4","5"]},
+  {id:"zin", type:"scale", l:"Waar heb je zin in?", h:"1 = maakt niet uit · 5 = heel veel", rows:["Schieten","Verkennen","Roleplay","Puzzels"], cols:["1","2","3","4","5"]},
   {id:"anders", type:"area", l:"Wat wil je anders spelen dan je vorige personage?"}]},
  {t:"2 · Planning", q:[
-  {id:"looptijd", type:"radio", l:"Hoe lang moet de campaign duren?", o:["1–2 maanden","2–4 maanden","4–6 maanden","Zolang het leuk is"]},
+  {id:"looptijd", type:"radio", l:"Hoe lang moet de campaign duren?", o:["1–2 maanden","2–4 maanden","4–6 maanden","Een jaar","Zolang het leuk is"]},
   {id:"start", type:"radio", l:"Hoe laat beginnen we met spelen (na het eten)?", o:["19:30","20:00","20:30","Maakt niet uit"]},
   {id:"duur", type:"radio", l:"Hoe lang spelen?", o:["2 uur","2,5 uur","3 uur","Langer"]},
   {id:"afwezig", type:"radio", l:"Ben je er een keer niet, dan…", o:["Loopt mijn personage mee op de achtergrond","Speelt de DM het","Is mijn personage even weg"]},
-  {id:"minimum", type:"radio", l:"Wanneer gaat een avond niet door?", o:["Bij minder dan 3 spelers","Bij minder dan 4 spelers","Altijd spelen"]}]},
+  {id:"minimum", type:"radio", l:"Wanneer gaat een avond niet door?", o:["Als er 1 speler mist","Als er 2 spelers missen","Altijd spelen"]}]},
  {t:"3 · Aan tafel", q:[
   {id:"telefoon", type:"radio", l:"Telefoons aan tafel?", o:["Liever niet","Alleen voor sheet/regels","Maakt niet uit"]},
+  {id:"dobbelen", type:"radio", l:"Dobbelstenen", o:["Alleen echte dobbelstenen","Digitaal mag ook","Maakt niet uit"]},
+  {id:"sheet", type:"radio", l:"Character sheet", o:["D&D Beyond mag","Alleen papier","Maakt niet uit"]},
   {id:"regels", type:"radio", l:"Regel onduidelijk?", o:["DM beslist meteen, discussie na afloop","Even samen opzoeken"]},
   {id:"toon", type:"radio", l:"Toon", o:["Serieus met droge humor","Dramatisch en duister","Lekker komisch"]},
   {id:"beschrijven", type:"radio", l:"Wil je zelf scènes mee beschrijven? (bv. hoe een vijand neergaat)", o:["Ja, graag","Soms","Nee, laat de DM maar"]},
