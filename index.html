@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Dorstwijk – Sessie 0</title>
+<title>Dorstwijk: sessie 0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rye&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -96,7 +96,7 @@ const S = [
   {id:"zin", type:"scale", l:"Waar heb je zin in?", h:"1 = maakt niet uit · 5 = heel veel", rows:["Schieten","Verkennen","Roleplay","Puzzels"], cols:["1","2","3","4","5"]},
   {id:"anders", type:"area", l:"Wat wil je anders spelen dan je vorige personage?"}]},
  {t:"2 · Planning", q:[
-  {id:"looptijd", type:"radio", l:"Hoe lang moet de campaign duren?", o:["1–2 maanden","2–4 maanden","4–6 maanden","Een jaar","Zolang het leuk is"]},
+  {id:"looptijd", type:"radio", l:"Hoe lang moet de campaign duren?", o:["1-2 maanden","2-4 maanden","4-6 maanden","Een jaar","Zolang het leuk is"]},
   {id:"start", type:"radio", l:"Hoe laat beginnen we met spelen (na het eten)?", o:["19:30","20:00","20:30","Maakt niet uit"]},
   {id:"duur", type:"radio", l:"Hoe lang spelen?", o:["2 uur","2,5 uur","3 uur","Langer"]},
   {id:"afwezig", type:"radio", l:"Ben je er een keer niet, dan…", o:["Loopt mijn personage mee op de achtergrond","Speelt de DM het","Is mijn personage even weg"]},
@@ -116,7 +116,7 @@ const S = [
   {id:"hp", type:"radio", l:"HP bij level up", o:["Gemiddelde","Rollen"]},
   {id:"duel", type:"radio", l:"High Noon-duel als minigame?", o:["Ja!","Misschien","Nee"]},
   {id:"dood", type:"radio", l:"Doodgaan", o:["Dood is dood","Terugkomen kan, met een prijs","Liever niet doodgaan"]}]},
- {t:"5 · Grenzen – alleen voor de DM", p:true, i:"Niemand anders ziet dit. Uitleg is niet nodig. Je kunt dit ook later nog doorgeven.", q:[
+ {t:"5 · Grenzen (alleen voor de DM)", p:true, i:"Niemand anders ziet dit. Uitleg is niet nodig. Je kunt dit ook later nog doorgeven.", q:[
   {id:"rating", type:"radio", l:"Hoe heftig mag het zijn?", o:["PG-13 (zoals een gewone western)","R (rauw en bloederig mag)"]},
   {id:"grenzen", type:"scale", l:"Per onderwerp", h:"Oké · Buiten beeld (gebeurt, maar we zoomen niet in) · Niet (komt niet voor)", rows:["Martelen","Ophangen / executies","Geweld tegen dieren","Racisme","Verslaving (drank, opium)","Geweld tegen kinderen","Seksueel geweld","Zelfmoord","Spinnen / slangen / insecten","Lijken en ondoden in detail"], cols:["Oké","Buiten beeld","Niet"]},
   {id:"grenzen_extra", type:"area", l:"Nog iets anders?"}]},
@@ -128,12 +128,12 @@ const S = [
     ["Mien de Haan","Eigenaar van Het Roestige Hoefijzer, de rauwe saloon. Whisky, poker, cowboys en ruzies. Hier hoor je alles."],
     ["Sheriff Arie Snoek","Oud en moe. Wil vooral dat het rustig blijft tot zijn pensioen. Zoekt hulp, maar kan weinig betalen."],
     ["Harm Smit","Winkel & wapensmid: munitie, gereedschap, reparaties. Ouwe Harm stelt geen vragen."],
-    ["Joop Ros","De stal: paarden kopen, verkopen, stallen. Joop kent elk paard in de streek – en wie erop rijdt."],
+    ["Joop Ros","De stal: paarden kopen, verkopen, stallen. Joop kent elk paard in de streek, en wie erop rijdt."],
     ["Cornelis Hagedoorn","Beleefde baas van de IJzeren Meridiaan-spoorweg. Koopt land op langs de route. Wie niet verkoopt, krijgt \"bezoek\"."],
     ["Bram Wolf","Leider van de Wolf-bende. Overvalt postkoetsen en goudtransporten. Sommigen noemen hem een held: hij besteelt alleen de spoorweg."]]},
   {id:"npc", type:"radio", l:"Wie ken je in Dorstwijk?", o:["Mien de Haan (saloon)","Sheriff Arie Snoek","Harm Smit (wapensmid)","Joop Ros (stal)","Cornelis Hagedoorn (spoorweg)","Bram Wolf (bende)","Weet ik nog niet"]},
   {id:"npc_hoe", type:"text", l:"Hoe ken je die persoon?"},
-  {id:"paard", type:"text", l:"Naam en één eigenschap van je paard", h:"bv. 'Zwartkop – bijt vreemden'"}]}
+  {id:"paard", type:"text", l:"Naam en één eigenschap van je paard", h:"bv. 'Zwartkop, bijt vreemden'"}]}
 ];
 
 const f = document.getElementById('f'), KEY = 'dorstwijk-s0';
