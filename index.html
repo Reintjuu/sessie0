@@ -225,7 +225,7 @@ function importText(t) {
   const set = (id, v) => {
     const el = f.elements[id];
     if (!el || !v) return 0;
-    if (el instanceof RadioNodeList) { const w = v.replace(/[20132014]/g, '-'); let ok = 0; for (const r of el) if (r.value === w) { r.checked = true; ok = 1; } return ok; }
+    if (el instanceof RadioNodeList) { const w = v.replace(/[–—]/g, '-'); let ok = 0; for (const r of el) if (r.value === w) { r.checked = true; ok = 1; } return ok; }
     el.value = v; return 1;
   };
   let n = 0;
