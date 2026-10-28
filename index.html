@@ -13,15 +13,16 @@
   --display:"Rye",Georgia,serif;--body:"Old Standard TT",Georgia,"Times New Roman",serif}
 *{box-sizing:border-box}
 html,body{background:var(--paper)}
-body{margin:0;color:var(--ink);font:17px/1.55 var(--body)}
+body{margin:0;color:var(--ink);font:17px/1.55 var(--body);font-kerning:normal;text-rendering:optimizeLegibility}
+h1,h2,.ad-k,.info .lbl,button{word-spacing:.18em}
 main{max-width:640px;margin:0 auto;padding:20px 16px 110px}
 .masthead{text-align:center;border-bottom:3px solid var(--rule);padding-bottom:6px}
 .masthead .top{display:flex;justify-content:space-between;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--grey);border-bottom:1px solid var(--rule);padding-bottom:4px}
-h1{font-family:var(--display);font-weight:normal;font-size:clamp(2rem,9vw,3.2rem);line-height:1.05;margin:10px 0 4px;letter-spacing:.02em}
+h1{font-family:var(--display);font-weight:normal;font-size:clamp(2rem,9vw,3.2rem);line-height:1.05;margin:10px 0 4px;letter-spacing:0}
 .masthead .date{display:flex;justify-content:space-between;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;border-top:1px solid var(--rule);padding-top:4px;margin-top:6px}
 .ad{border:3px double var(--rule);text-align:center;padding:8px 12px 10px;margin:16px auto 0;max-width:420px}
-.ad-k{font-family:var(--display);font-size:1.7rem;letter-spacing:.18em;line-height:1.2}
-.ad p{margin:2px 0;font-size:.95rem}
+.ad-k{font-family:var(--display);font-size:1.7rem;letter-spacing:.06em;line-height:1.2}
+.ad p{margin:2px 0;font-size:.95rem;text-wrap:balance}
 .ad-r{font-variant:small-caps;font-weight:700;letter-spacing:.04em}
 .sub{font-style:italic;margin:12px 0 0;border-bottom:1px solid var(--rule);padding-bottom:12px}
 section{margin:22px 0 0}
@@ -65,11 +66,11 @@ button.ghost{background:transparent;color:var(--ink)}
 <header class="masthead">
   <div class="top"><span>Jaargang I · No. 0</span><span>Prijs: 1 cent</span></div>
   <h1>De Dorstwijkse Courant</h1>
-  <div class="date"><span>Woensdag</span><span>Sessie 0</span><span>De Rode Vlakte</span></div>
+  <div class="date"><span>Woensdag</span><span>Sessie 0</span><span>De&nbsp;Rode&nbsp;Vlakte</span></div>
 </header>
 <div class="ad">
   <div class="ad-k">Gezocht</div>
-  <p>Avonturiers met lef, voor gevaarlijk werk op de Rode Vlakte.<br>Melden bij de DM.</p>
+  <p>Avonturiers met lef, voor gevaarlijk werk op de&nbsp;Rode&nbsp;Vlakte.<br>Melden bij de DM.</p>
   <p class="ad-r">Beloning: een plek aan tafel</p>
 </div>
 <p class="sub">Vul in wat je wilt; alles mag leeg blijven. Klik onderaan op <b>Versturen</b> en stuur het <b>alleen naar de DM</b>, niet in de groepsapp.</p>
