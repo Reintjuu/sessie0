@@ -59,6 +59,10 @@ button.ghost{background:transparent;color:var(--ink)}
 #out{display:none}
 #out textarea{min-height:260px;font:13px/1.4 "Courier New",monospace}
 #msg{font-weight:700;min-height:1.4em}
+.import{border:1px solid var(--ink);padding:8px 10px;margin:14px 0 0}
+.import summary{cursor:pointer;font-weight:700}
+.import textarea{margin:8px 0;min-height:110px;font:13px/1.4 "Courier New",monospace}
+#impmsg{font-weight:700;min-height:1.4em;margin:6px 0 0}
 </style>
 </head>
 <body>
@@ -74,6 +78,13 @@ button.ghost{background:transparent;color:var(--ink)}
   <p class="ad-r">Beloning: een plek aan tafel</p>
 </div>
 <p class="sub">Vul in wat je wilt; alles mag leeg blijven. Klik onderaan op <b>Versturen</b> en stuur het <b>alleen naar de DM</b>, niet in de groepsapp.</p>
+<details class="import">
+  <summary>Al eerder ingevuld? Zet je antwoorden terug</summary>
+  <p class="hint">Zelfde telefoon en browser? Dan staan je antwoorden er al. Anders: plak hier de tekst die je eerder naar de DM stuurde.</p>
+  <textarea id="imp" aria-label="Eerder verstuurde antwoorden"></textarea>
+  <button type="button" id="impbtn">Terugzetten</button>
+  <p id="impmsg"></p>
+</details>
 <form id="f"></form>
 <section id="out">
   <h2>Jouw antwoorden</h2>
@@ -206,6 +217,40 @@ document.getElementById('send').onclick = async () => {
   try { await navigator.clipboard.writeText(text); msg.textContent = 'Gekopieerd! Plak het in een privébericht aan de DM.'; }
   catch (e) { ta.select(); try { document.execCommand('copy'); msg.textContent = 'Gekopieerd! Plak het in een privébericht aan de DM.'; } catch (e2) { msg.textContent = 'Selecteer en kopieer de tekst hieronder.'; } }
   box.scrollIntoView({ behavior: 'smooth' });
+};
+// Eerder verstuurde tekst terugzetten in het formulier
+function importText(t) {
+  const qs = S.flatMap(s => s.q).filter(q => q.type !== 'info');
+  const labels = [...qs.map(q => [q.l, q]), ['Komt niet voor', 'Niet'], ['Buiten beeld', 'Buiten beeld']].sort((a, b) => b[0].length - a[0].length);
+  const set = (id, v) => {
+    const el = f.elements[id];
+    if (!el || !v) return 0;
+    if (el instanceof RadioNodeList) { const w = v.replace(/[20132014]/g, '-'); let ok = 0; for (const r of el) if (r.value === w) { r.checked = true; ok = 1; } return ok; }
+    el.value = v; return 1;
+  };
+  let n = 0;
+  for (const raw of t.split(/\r?\n/)) {
+    const line = raw.replace(/\*/g, '').trim();
+    const h = line.match(/^##\s+(.+)$/);
+    if (h) { if (h[1].trim() !== 'Speler') n += set('naam', h[1].trim()); continue; }
+    const clean = line.replace(/^[-•]\s+/, '');
+    const hit = labels.find(([l]) => clean.startsWith(l.replace(/:$/, '')));
+    if (!hit) continue;
+    const v = clean.slice(hit[0].replace(/:$/, '').length).replace(/^:/, '').trim();
+    const q = hit[1];
+    if (typeof q === 'string') {
+      const g = qs.find(x => x.id === 'grenzen');
+      v.split(/,\s*/).forEach(r => { const i = g.rows.indexOf(r.trim()); if (i >= 0) n += set(`grenzen_${i}`, q); });
+    } else if (q.type === 'scale') {
+      v.split(/\s*·\s*/).forEach(part => { const m = part.match(/^(.+?)\s+(\d)\/5$/); if (m) { const i = q.rows.indexOf(m[1]); if (i >= 0) n += set(`${q.id}_${i}`, m[2]); } });
+    } else n += set(q.id, v);
+  }
+  save();
+  return n;
+}
+document.getElementById('impbtn').onclick = () => {
+  const n = importText(document.getElementById('imp').value);
+  document.getElementById('impmsg').textContent = n ? `${n} antwoorden teruggezet. Loop ze even na, vul blok 7 (Backstory) aan en verstuur opnieuw.` : 'Niets herkend. Plak de hele tekst die je naar de DM stuurde.';
 };
 document.getElementById('reset').onclick = () => {
   if (!confirm('Alle antwoorden wissen?')) return;
