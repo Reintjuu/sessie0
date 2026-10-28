@@ -124,16 +124,22 @@ const S = [
   {id:"concept", type:"text", l:"Concept in één zin", h:"bv. 'Ex-soldaat die als premiejager zijn schulden afbetaalt'"},
   {id:"species", type:"text", l:"Species"},
   {id:"class", type:"text", l:"Class / subclass"},
+  {id:"paard", type:"text", l:"Naam en één eigenschap van je paard", h:"bv. 'Zwartkop, bijt vreemden'"}]},
+ {t:"7 · Backstory", i:"Kort is goed. Wat je opschrijft, komt terug in het verhaal. Nog niet klaar? Je antwoorden blijven op je telefoon bewaard: open de pagina later opnieuw en verstuur vóór sessie 1.", q:[
+  {id:"waarom", type:"area", l:"Waarom ben je in Dorstwijk?", h:"Wat zoek je of wie ontloop je?"},
   {id:"wiewie", type:"info", l:"Wie is wie in Dorstwijk", rows:[
     ["Mien de Haan","Eigenaar van Het Roestige Hoefijzer, de rauwe saloon. Whisky, poker, cowboys en ruzies. Hier hoor je alles."],
     ["Sheriff Arie Snoek","Oud en moe. Wil vooral dat het rustig blijft tot zijn pensioen. Zoekt hulp, maar kan weinig betalen."],
     ["Harm Smit","Winkel & wapensmid: munitie, gereedschap, reparaties. Ouwe Harm stelt geen vragen."],
-    ["Joop Ros","De stal: paarden kopen, verkopen, stallen. Joop kent elk paard in de streek, en wie erop rijdt."],
+    ["Joop Ros","De stal: paarden kopen, verkopen, stallen. Joop kent elk paard in de streek en wie erop rijdt."],
     ["Cornelis Hagedoorn","Beleefde baas van de IJzeren Meridiaan-spoorweg. Koopt land op langs de route. Wie niet verkoopt, krijgt \"bezoek\"."],
     ["Bram Wolf","Leider van de Wolf-bende. Overvalt postkoetsen en goudtransporten. Sommigen noemen hem een held: hij besteelt alleen de spoorweg."]]},
   {id:"npc", type:"radio", l:"Wie ken je in Dorstwijk?", o:["Mien de Haan (saloon)","Sheriff Arie Snoek","Harm Smit (wapensmid)","Joop Ros (stal)","Cornelis Hagedoorn (spoorweg)","Bram Wolf (bende)","Weet ik nog niet"]},
   {id:"npc_hoe", type:"text", l:"Hoe ken je die persoon?"},
-  {id:"paard", type:"text", l:"Naam en één eigenschap van je paard", h:"bv. 'Zwartkop, bijt vreemden'"}]}
+  {id:"groep", type:"area", l:"Wie ken je in de groep?", h:"Bedenk samen met een andere speler hoe jullie elkaar kennen. bv. 'Ik heb jou ooit uit de cel gehaald' of 'Jij bent me nog geld schuldig'"},
+  {id:"naamwaard", type:"area", l:"Wat is je naam waard?", h:"Ben je bekend, berucht of hoopt niemand je te herkennen? Staat er een premie op je hoofd?"},
+  {id:"voorwerp", type:"text", l:"Welk voorwerp draag je altijd bij je en waarom?"},
+  {id:"geheim", type:"area", l:"Een geheim", h:"Alleen de DM ziet dit."}]}
 ];
 
 const f = document.getElementById('f'), KEY = 'dorstwijk-s0';
