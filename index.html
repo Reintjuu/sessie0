@@ -121,6 +121,7 @@ function load() {
 f.addEventListener('input', save); f.addEventListener('change', save); load();
 
 function val(id) { const el = f.elements[id]; return el ? (el.value || '').trim() : ''; }
+const lab = l => /[?:…]$/.test(l) ? l : l + ":";
 
 function markdown() {
   const out = [`## ${val('naam') || 'Speler'}`];
@@ -135,11 +136,11 @@ function markdown() {
           for (const c of ['Niet', 'Buiten beeld']) if (by[c]) lines.push(`- **${c === 'Niet' ? 'Komt niet voor' : 'Buiten beeld'}:** ${by[c].join(', ')}`);
         } else {
           const parts = q.rows.map((r, i) => { const v = val(`${q.id}_${i}`); return v ? `${r} ${v}/5` : ''; }).filter(Boolean);
-          if (parts.length) lines.push(`- **${q.l}** ${parts.join(' · ')}`);
+          if (parts.length) lines.push(`- **${lab(q.l)}** ${parts.join(' · ')}`);
         }
       } else {
         const v = val(q.id);
-        if (v) lines.push(`- **${q.l}** ${v.replace(/\n+/g, ' ')}`);
+        if (v) lines.push(`- **${lab(q.l)}** ${v.replace(/\n+/g, ' ')}`);
       }
     }
     if (lines.length) out.push('', `### ${s.t}${s.p ? ' 🔒' : ''}`, ...lines);
