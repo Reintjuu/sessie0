@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dorstwijk – Sessie 0</title>
+<style>
+:root{--bg:#f3e9d6;--card:#fbf5e9;--ink:#2b1d12;--muted:#7a6550;--line:#d8c5a5;--accent:#9c3b1c;--accent-ink:#fff;--sel:#f0d9c4}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1511;--card:#271e18;--ink:#efe3d0;--muted:#b09a80;--line:#4a3a2c;--accent:#d0643c;--accent-ink:#1c1511;--sel:#3d2a1f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Georgia,"Times New Roman",serif}
+main{max-width:640px;margin:0 auto;padding:16px 16px 120px}
+h1{font-size:1.7rem;margin:.5rem 0 0;letter-spacing:.02em}
+.sub{color:var(--muted);margin:.2rem 0 1rem;font-style:italic}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 6px;margin:14px 0}
+section h2{font-size:1.15rem;margin:0 0 .2rem;color:var(--accent)}
+section .intro{color:var(--muted);font-size:.92rem;margin:0 0 .6rem}
+.private{border:2px solid var(--accent)}
+.q{margin:0 0 14px}
+.q>label,.q>.lbl{display:block;font-weight:bold;margin-bottom:4px}
+.hint{display:block;font-weight:normal;color:var(--muted);font-size:.88rem}
+input[type=text],textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:70px;resize:vertical}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opts label{display:inline-flex;align-items:center;padding:7px 11px;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:.95rem;background:var(--bg)}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts label:has(input:checked){background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{padding:6px 2px;border-bottom:1px solid var(--line);text-align:center}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:normal;color:var(--muted);font-size:.8rem}
+td input{width:20px;height:20px;accent-color:var(--accent)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;justify-content:center}
+button{font:inherit;font-weight:bold;padding:11px 16px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+#out{display:none}
+#out textarea{min-height:260px;font:13px/1.4 Consolas,monospace}
+#msg{color:var(--accent);font-weight:bold;min-height:1.4em}
+</style>
+</head>
+<body>
+<main>
+<h1>🤠 Dorstwijk – Sessie 0</h1>
+<p class="sub">Vul in wat je wilt; alles mag leeg blijven. Klik onderaan op <b>Versturen</b> en stuur het <b>alleen naar de DM</b>, niet in de groepsapp.</p>
+<form id="f"></form>
+<section id="out">
+  <h2>Jouw antwoorden</h2>
+  <p class="intro">Gekopieerd? Plak het in een privébericht aan de DM. Lukt kopiëren niet, selecteer dan de tekst hieronder.</p>
+  <p id="msg"></p>
+  <textarea id="txt" readonly></textarea>
+</section>
+</main>
+<div class="bar">
+  <button type="button" class="ghost" id="reset">Wissen</button>
+  <button type="button" id="send">Versturen</button>
+</div>
+<script>
+const S = [
+ {t:"Wie ben je?", q:[
+  {id:"naam", type:"text", l:"Je naam (speler)"}]},
+ {t:"1 · Opwarmen", q:[
+  {id:"moment", type:"area", l:"Mooiste moment uit een eerdere campaign?", h:"Wat willen we vaker?"},
+  {id:"zin", type:"scale", l:"Waar heb je zin in?", h:"1 = maakt niet uit · 5 = heel veel", rows:["Schieten","Verkennen","Roleplay"], cols:["1","2","3","4","5"]},
+  {id:"anders", type:"area", l:"Wat wil je anders spelen dan je vorige personage?"}]},
+ {t:"2 · Planning", q:[
+  {id:"looptijd", type:"radio", l:"Hoe lang moet de campaign duren?", o:["1–2 maanden","2–4 maanden","4–6 maanden","Zolang het leuk is"]},
+  {id:"start", type:"radio", l:"Hoe laat beginnen we met spelen (na het eten)?", o:["19:30","20:00","20:30","Maakt niet uit"]},
+  {id:"duur", type:"radio", l:"Hoe lang spelen?", o:["2 uur","2,5 uur","3 uur","Langer"]},
+  {id:"afwezig", type:"radio", l:"Ben je er een keer niet, dan…", o:["Loopt mijn personage mee op de achtergrond","Speelt de DM het","Is mijn personage even weg"]},
+  {id:"minimum", type:"radio", l:"Wanneer gaat een avond niet door?", o:["Bij minder dan 3 spelers","Bij minder dan 4 spelers","Altijd spelen"]}]},
+ {t:"3 · Aan tafel", q:[
+  {id:"telefoon", type:"radio", l:"Telefoons aan tafel?", o:["Liever niet","Alleen voor sheet/regels","Maakt niet uit"]},
+  {id:"regels", type:"radio", l:"Regel onduidelijk?", o:["DM beslist meteen, discussie na afloop","Even samen opzoeken"]},
+  {id:"toon", type:"radio", l:"Toon", o:["Serieus met droge humor","Dramatisch en duister","Lekker komisch"]},
+  {id:"beschrijven", type:"radio", l:"Wil je zelf scènes mee beschrijven? (bv. hoe een vijand neergaat)", o:["Ja, graag","Soms","Nee, laat de DM maar"]},
+  {id:"pvp", type:"radio", l:"Spelers tegen elkaar (PvP)?", o:["Alleen als beide spelers het willen","Nooit","Mag gewoon"]}]},
+ {t:"4 · Spel", q:[
+  {id:"structuur", type:"radio", l:"Structuur", o:["Eén verhaal volgen","Vrij rondtrekken (premies, klussen)","Mix"]},
+  {id:"stats", type:"radio", l:"Ability scores", o:["Standard array","Point buy","Rollen (4d6)","Maakt niet uit"]},
+  {id:"levelen", type:"radio", l:"Levelen", o:["Milestone (DM zegt wanneer)","XP bijhouden"]},
+  {id:"hp", type:"radio", l:"HP bij level up", o:["Gemiddelde","Rollen"]},
+  {id:"duel", type:"radio", l:"High Noon-duel als minigame?", o:["Ja!","Misschien","Nee"]},
+  {id:"dood", type:"radio", l:"Doodgaan", o:["Dood is dood","Terugkomen kan, met een prijs","Liever niet doodgaan"]}]},
+ {t:"5 · Grenzen – alleen voor de DM", p:true, i:"Niemand anders ziet dit. Uitleg is niet nodig. Je kunt dit ook later nog doorgeven.", q:[
+  {id:"rating", type:"radio", l:"Hoe heftig mag het zijn?", o:["PG-13 (zoals een gewone western)","R (rauw en bloederig mag)"]},
+  {id:"grenzen", type:"scale", l:"Per onderwerp", h:"Oké · Buiten beeld (gebeurt, maar we zoomen niet in) · Niet (komt niet voor)", rows:["Martelen","Ophangen / executies","Geweld tegen dieren","Racisme","Verslaving (drank, opium)","Geweld tegen kinderen","Seksueel geweld","Zelfmoord","Spinnen / slangen / insecten","Lijken en ondoden in detail"], cols:["Oké","Buiten beeld","Niet"]},
+  {id:"grenzen_extra", type:"area", l:"Nog iets anders?"}]},
+ {t:"6 · Je personage", i:"Een eerste idee is genoeg. Het concept bespreken we samen, zodat niet iedereen hetzelfde speelt.", q:[
+  {id:"concept", type:"text", l:"Concept in één zin", h:"bv. 'Ex-soldaat die als premiejager zijn schulden afbetaalt'"},
+  {id:"species", type:"text", l:"Species"},
+  {id:"class", type:"text", l:"Class / subclass"},
+  {id:"npc", type:"radio", l:"Wie ken je in Dorstwijk?", o:["Mien de Haan (saloon)","Sheriff Arie Snoek","Harm Smit (wapensmid)","Joop Ros (stal)","Cornelis Hagedoorn (spoorweg)","Bram Wolf (bende)","Weet ik nog niet"]},
+  {id:"npc_hoe", type:"text", l:"Hoe ken je die persoon?"},
+  {id:"paard", type:"text", l:"Naam en één eigenschap van je paard", h:"bv. 'Zwartkop – bijt vreemden'"}]}
+];
+
+const f = document.getElementById('f'), KEY = 'dorstwijk-s0';
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+f.innerHTML = S.map(s => `<section${s.p ? ' class="private"' : ''}><h2>${s.t}</h2>${s.i ? `<p class="intro">${s.i}</p>` : ''}${s.q.map(q => {
+  const h = q.h ? `<span class="hint">${q.h}</span>` : '';
+  if (q.type === 'text') return `<div class="q"><label for="${q.id}">${q.l}${h}</label><input type="text" id="${q.id}" name="${q.id}"></div>`;
+  if (q.type === 'area') return `<div class="q"><label for="${q.id}">${q.l}${h}</label><textarea id="${q.id}" name="${q.id}"></textarea></div>`;
+  if (q.type === 'radio') return `<div class="q"><span class="lbl">${q.l}${h}</span><div class="opts">${q.o.map(o => `<label><input type="radio" name="${q.id}" value="${esc(o)}">${o}</label>`).join('')}</div></div>`;
+  return `<div class="q"><span class="lbl">${q.l}${h}</span><table><tr><th></th>${q.cols.map(c => `<th>${c}</th>`).join('')}</tr>${q.rows.map((r, i) => `<tr><td>${r}</td>${q.cols.map(c => `<td><input type="radio" name="${q.id}_${i}" value="${esc(c)}" aria-label="${esc(r + ': ' + c)}"></td>`).join('')}</tr>`).join('')}</table></div>`;
+}).join('')}</section>`).join('');
+
+// Tussentijds bewaren op dit toestel, voor als de pagina herlaadt
+function save() { try { localStorage.setItem(KEY, JSON.stringify(Object.fromEntries(new FormData(f)))); } catch (e) {} }
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY) || '{}');
+    for (const [k, v] of Object.entries(d)) {
+      const el = f.elements[k];
+      if (!el) continue;
+      if (el instanceof RadioNodeList) { for (const r of el) r.checked = r.value === v; } else el.value = v;
+    }
+  } catch (e) {}
+}
+f.addEventListener('input', save); f.addEventListener('change', save); load();
+
+function val(id) { const el = f.elements[id]; return el ? (el.value || '').trim() : ''; }
+
+function markdown() {
+  const out = [`## ${val('naam') || 'Speler'}`];
+  for (const s of S) {
+    const lines = [];
+    for (const q of s.q) {
+      if (q.id === 'naam') continue;
+      if (q.type === 'scale') {
+        if (q.id === 'grenzen') {
+          const by = {};
+          q.rows.forEach((r, i) => { const v = val(`${q.id}_${i}`); if (v && v !== 'Oké') (by[v] = by[v] || []).push(r); });
+          for (const c of ['Niet', 'Buiten beeld']) if (by[c]) lines.push(`- **${c === 'Niet' ? 'Komt niet voor' : 'Buiten beeld'}:** ${by[c].join(', ')}`);
+        } else {
+          const parts = q.rows.map((r, i) => { const v = val(`${q.id}_${i}`); return v ? `${r} ${v}/5` : ''; }).filter(Boolean);
+          if (parts.length) lines.push(`- **${q.l}** ${parts.join(' · ')}`);
+        }
+      } else {
+        const v = val(q.id);
+        if (v) lines.push(`- **${q.l}** ${v.replace(/\n+/g, ' ')}`);
+      }
+    }
+    if (lines.length) out.push('', `### ${s.t}${s.p ? ' 🔒' : ''}`, ...lines);
+  }
+  return out.join('\n');
+}
+
+document.getElementById('send').onclick = async () => {
+  const text = markdown(), box = document.getElementById('out'), msg = document.getElementById('msg'), ta = document.getElementById('txt');
+  ta.value = text; box.style.display = 'block'; msg.textContent = '';
+  if (navigator.share) {
+    try { await navigator.share({ text }); msg.textContent = 'Verstuurd? Check of het bij de DM is aangekomen.'; box.scrollIntoView({ behavior: 'smooth' }); return; }
+    catch (e) { if (e.name === 'AbortError') { box.scrollIntoView({ behavior: 'smooth' }); return; } }
+  }
+  try { await navigator.clipboard.writeText(text); msg.textContent = 'Gekopieerd! Plak het in een privébericht aan de DM.'; }
+  catch (e) { ta.select(); try { document.execCommand('copy'); msg.textContent = 'Gekopieerd! Plak het in een privébericht aan de DM.'; } catch (e2) { msg.textContent = 'Selecteer en kopieer de tekst hieronder.'; } }
+  box.scrollIntoView({ behavior: 'smooth' });
+};
+document.getElementById('reset').onclick = () => {
+  if (!confirm('Alle antwoorden wissen?')) return;
+  f.reset(); try { localStorage.removeItem(KEY); } catch (e) {}
+  document.getElementById('out').style.display = 'none';
+};
+</script>
+</body>
+</html>
